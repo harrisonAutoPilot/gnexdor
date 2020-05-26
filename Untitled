@@ -1,0 +1,28 @@
+<TextInput
+        style={styles.input1}
+        placeholder='Email'
+        autoCapitalize="none"
+        placeholderTextColor='gray'
+        onChangeText={(emailVal) =>{
+         this.setState({
+          email:emailVal,
+         });
+        }}
+        value={this.state.email}
+      />
+
+      <TextInput
+      style={styles.input1}
+      placeholder='Password'
+      autoCapitalize="none"
+      secureTextEntry={true}
+      placeholderTextColor='gray'
+      onChangeText={(passwordVal) =>{
+       this.setState({
+        password:passwordVal,
+       });
+      }}
+
+      value={this.state.password}
+      />
+</View>
