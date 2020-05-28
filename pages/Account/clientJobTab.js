@@ -22,7 +22,7 @@ const TabScreen = createMaterialTopTabNavigator(
     screen: Request,
 
     },
-    ACTIVE: { screen:Pending,
+    ONGOING: { screen:Pending,
 
           },
      COMPLETED: { screen: Completed,

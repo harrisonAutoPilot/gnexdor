@@ -7,6 +7,7 @@ import { FlatHeader, Group } from 'react-native-flat-header';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder';
 import MapView from 'react-native-maps';
+import BigStarRating from '.././StarRating/bigStar-rating';
 import StarRating from '.././StarRating/star-rating';
 import Tooltip from 'react-native-walkthrough-tooltip';
  import Info from '.././info';
@@ -18,6 +19,7 @@ import {comData} from '../../util/clientJob/completedJobData';
 import {characters} from '../../util/map/mapData';
 import {data} from '../../util/home/serviceData';
 import {reqData} from '../../util/home/serviceRequestData';
+import Textarea from 'react-native-textarea'
 import {
  heightPercentageToDP as hp,
  widthPercentageToDP as wp,
@@ -36,6 +38,7 @@ class Completed extends Component{
      this.state = {
       isVisible: false,
      isVisibleService: false,
+     isVisibleComment: false,
      isVisibleRequest: false,
       isVisiblePayment:false,
        }
@@ -105,7 +108,12 @@ class Completed extends Component{
                            this.setState({ isVisiblePayment:!this.state.isVisiblePayment})
                            this.RBSheet.open()
                                  }
+                                 endComment= ()=>{
+                                      this.setState({ isVisibleRequest:false})
 
+                                this.setState({ isVisibleComment:false})
+
+                                           }
 
   render() {
     const {navigate} = this.props.navigation;
@@ -311,42 +319,37 @@ class Completed extends Component{
        <Modal
           animationType = {"fade"}
           transparent = {true}
-          visible = {this.state.isVisibleRequest}
+          visible = {this.state.isVisibleComment}
           onRequestClose = {() =>{ console.log("Modal has been closed.") } }>
 
               <View style = {styles.modal}  >
-              <View style={styles.topReq}>
-              <Image source={require('../../images/GG.png')} style={styles.reqBgImg} />
-              </View>
+
               <View style={styles.regWith}>
-              <View><Text style={styles.Te}> Completed Job</Text></View>
+              <View><BigStarRating ratingObj={ratingObj}/></View>
               </View>
-                  <View style={styles.voucherTitle}><Text style={{fontSize:15,color:'gray',fontWeight:'bold' }}>Ebube Harrison</Text></View>
-                  <View style={styles.voucherTitleService}><Text style={{fontSize:13, color:'gray', marginTop:20}}>Services</Text></View>
-                        <View style={styles.serviceCover}>
-                        {
-                        reqData && reqData.length > 0 && reqData.map(val => {
-                          return (
 
-                           <View style={styles.serviceDiv}>
-                            <View style={{ flexDirection:'row', width:170}}><Text style={{fontSize:13, color:'gray',marginLeft:5}}> {val.serviceName}</Text></View>
-                             <View style={{ flexDirection:'row', justifyContent:'center'}}><Text style={{fontSize:13, color:'gray',alignSelf: 'flex-start',}}> ₦ {val.price}</Text></View>
+                        <View style={styles.serviceComment}>
+                       <Text style={{fontSize:15,color:'gray',fontWeight:'bold',margin:10 }}>Please leave a review</Text>
 
-                           </View>
-
-                           )
-                           })
-                           }
-
+                            <Textarea
+                              containerStyle={styles.textareaContainer}
+                              style={styles.textarea}
+                              onChangeText={this.onChange}
+                              defaultValue={this.state.text}
+                              maxLength={120}
+                              placeholder={''}
+                              placeholderTextColor={'#c7c7c7'}
+                              underlineColorAndroid={'transparent'}
+                            />
                         </View>
 
                  <View style={styles.btnContainerSer}>
 
                  </View>
                  <View style={{alignItems:'center', position:'absolute', top:370}}>
-                 <TouchableOpacity style={styles.reqBtnReq}  onPress = {() => {
-                     this.setState({ isVisibleRequest:!this.state.isVisibleRequest})}}>
-                 <Text style={{fontSize:15,color:'gray',}}>CLOSE</Text>
+                 <TouchableOpacity style={styles.reqBtnReq}  onPress = {this.endComment}>
+
+                 <Text style={{fontSize:15,color:'gray'}}>Finish</Text>
                  </TouchableOpacity>
 
                  </View>
@@ -354,6 +357,61 @@ class Completed extends Component{
 
 
         </Modal>
+
+        <Modal
+           animationType = {"fade"}
+           transparent = {true}
+           visible = {this.state.isVisibleRequest}
+           onRequestClose = {() =>{ console.log("Modal has been closed.") } }>
+
+               <View style = {styles.modal}  >
+               <View style={styles.topReq}>
+               <Image source={require('../../images/GG.png')} style={styles.reqBgImg} />
+               </View>
+               <View style={styles.regWith}>
+               <View><Text style={styles.Te}> Completed Job</Text></View>
+               </View>
+                   <View style={styles.voucherTitle}><Text style={{fontSize:15,color:'gray',fontWeight:'bold' }}>Ebube Harrison</Text></View>
+                   <View style={styles.voucherTitleService}><Text style={{fontSize:13, color:'gray', marginTop:20}}>Services</Text></View>
+                         <View style={styles.serviceCover}>
+                         {
+                         reqData && reqData.length > 0 && reqData.map(val => {
+                           return (
+
+                            <View style={styles.serviceDiv}>
+                             <View style={{ flexDirection:'row', width:170}}><Text style={{fontSize:13, color:'gray',marginLeft:5}}> {val.serviceName}</Text></View>
+                              <View style={{ flexDirection:'row', justifyContent:'center'}}><Text style={{fontSize:13, color:'gray',alignSelf: 'flex-start',}}> ₦ {val.price}</Text></View>
+
+                            </View>
+
+                            )
+                            })
+                            }
+
+                         </View>
+
+                  <View style={styles.btnContainerSer}>
+
+                  </View>
+                  <View style={{alignItems:'center', position:'absolute', top:350}}>
+                  <TouchableOpacity style={styles.reqBtnReq}  onPress = {() => {
+                      this.setState({ isVisibleComment:true})}}>
+                  <Text style={{fontSize:15,color:'gray',}}>ACCEPT</Text>
+                  </TouchableOpacity>
+                  </View>
+
+                  <View style={{alignItems:'center', position:'absolute', top:410}}>
+                  <TouchableOpacity style={styles.reqBtnReq}  onPress = {() => {
+                      this.setState({ isVisibleRequest:!this.state.isVisibleRequest})}}>
+                  <Text style={{fontSize:15,color:'gray',}}>DENY</Text>
+                  </TouchableOpacity>
+
+                  </View>
+
+           </View>
+
+
+         </Modal>
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
 
      <RBSheet
@@ -852,6 +910,7 @@ class Completed extends Component{
      position:'absolute',
      top:350,
      alignItems:'center',
+     flexDirection:'column',
     },
     reqBtn:{
      width:270,
@@ -1008,7 +1067,7 @@ class Completed extends Component{
    },
    serviceCover:{
    width:300,
-   height:230,
+   height:150,
    borderWidth:0.5,
    borderStyle:'solid',
    borderColor:'#f2f2f2',
@@ -1016,6 +1075,17 @@ class Completed extends Component{
    alignItems:'center',
    position:'absolute',
    top:190,
+   },
+   serviceComment:{
+   width:300,
+   height:150,
+   borderWidth:0,
+   borderStyle:'solid',
+   borderColor:'#f2f2f2',
+   flexDirection:'column',
+   alignItems:'center',
+   position:'absolute',
+   top:120,
    },
    sheetContainer:{
    flexDirection:'column',
@@ -1195,5 +1265,21 @@ class Completed extends Component{
         shadowRadius: 1,
         elevation: hp('0.8%'),
        },
+       textareaContainer: {
+           height: 180,
+           width:230,
+           padding: 5,
+           // backgroundColor: '#F5FCFF',
+           borderWidth:0.6,
+           borderStyle:'solid',
+           borderColor:'gray',
+           borderRadius:3,
+         },
+         textarea: {
+           textAlignVertical: 'top',  // hack android
+           height: 170,
+           fontSize: 14,
+           color: '#333',
 
+         },
   });

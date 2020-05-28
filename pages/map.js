@@ -90,7 +90,7 @@ class MapInfo extends React.Component <Props> {
 
               }
 
-              saveData2 = ()=>{
+              saveData3 = ()=>{
                 this.setState({ isVisiblePayment:!this.state.isVisiblePayment})
                 this.props.navigation.navigate('Profile_Activity_Client')
                     }
@@ -298,7 +298,7 @@ class MapInfo extends React.Component <Props> {
                              return (
 
                               <View style={styles.serviceDiv}>
-                               <View style={{ flexDirection:'row', width:170}}><Text style={{fontSize:13, color:'gray',marginLeft:5}}> {val.serviceName}</Text></View>
+                               <View style={{ flexDirection:'row', width:150}}><Text style={{fontSize:13, color:'gray',marginLeft:5}}> {val.serviceName}</Text></View>
                                 <View style={{ flexDirection:'row', justifyContent:'center'}}><Text style={{fontSize:13, color:'gray',alignSelf: 'flex-start',}}> ₦ {val.price}</Text></View>
 
                               </View>
@@ -316,8 +316,7 @@ class MapInfo extends React.Component <Props> {
                     <Image source={require('../assets/protect1.png')} style={{width:15, height :15}} />
                     <Text style={{color:'gray', fontSize:10,marginLeft:3}}>SECURE PAY</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.bckBtnP} onPress = {() => {
-                        this.setState({ isVisibleRequest:false})}}>
+                    <TouchableOpacity style={styles.bckBtnP} >
                         <Image source={require('../assets/protect1.png')} style={{width:15, height :15}} />
                         <Text style={{color:'gray', fontSize:10,marginLeft:3}}>PAY ON DELIVERY</Text>
                     </TouchableOpacity>
@@ -448,22 +447,20 @@ class MapInfo extends React.Component <Props> {
                          </View>
 
                   </View>
-                  <View style={styles.btnContainerPay}>
+                                <View style={styles.btnContainerPay}>
 
 
                                       <View style={styles.otherServiceBtn}>
                                       <TouchableOpacity style={styles.bckBtn} onPress = {() => {
-                                          this.setState({ isVisiblePayment:!this.state.isVisiblePayment})}}>
+                                          this.setState({ isVisiblePayment:false})}}>
                                       <Text style={{color:'gray', fontSize:10,}}>CANCEL</Text>
                                       </TouchableOpacity>
-                                      <TouchableOpacity style={styles.bckBtn}  onPress={this.saveData2}>
+                                      <TouchableOpacity style={styles.bckBtn}  onPress={this.saveData3}>
                                       <Text style={{color:'gray', fontSize:10,}}>PROCEED</Text>
                                       </TouchableOpacity>
                                       </View>
 
-
-
-                  </View>
+                                  </View>
                 <View style={styles.btnContainerSer}>
 
                 </View>
@@ -730,7 +727,7 @@ shadowRadius: 1,
     marginLeft:7,
    },
    services:{
-    width:290,
+    width:wp('70%'),
     height:205,
     borderWidth:0,
     borderStyle:'solid',
@@ -773,7 +770,7 @@ shadowRadius: 1,
     alignItems:'center',
    },
    reqBtn:{
-    width:270,
+    width:250,
     height:35,
     backgroundColor:'#fff',
     margin:5,
@@ -787,11 +784,12 @@ shadowRadius: 1,
     borderRadius:50,
    },
    otherServiceBtn:{
-    width:320,
+    width:300,
     height:40,
     alignItems:'center',
     flexDirection:'row',
-    justifyContent:'space-evenly'
+    justifyContent:'space-evenly',
+    zIndex:20,
    },
    otherServiceBtn1:{
     width:320,
@@ -810,7 +808,7 @@ shadowRadius: 1,
 
    },
    bckBtn:{
-    width:120,
+    width:100,
     height:35,
     backgroundColor:'#fff',
     alignItems:'center',
@@ -822,11 +820,12 @@ shadowRadius: 1,
     elevation: hp('0.8%'),
     alignItems:'center',
     borderRadius:50,
+    zIndex:20,
    },
 
    bckBtnP:{
-    width:280,
-    height:40,
+    width:250,
+    height:37,
     backgroundColor:'#fff',
     alignItems:'center',
     justifyContent:'center',
@@ -947,7 +946,7 @@ voucherTitleService:{
  top:130,
 },
 serviceCover:{
- width:290,
+ width:wp('60%'),
  height:170,
  borderWidth:0.5,
  borderStyle:'solid',
@@ -971,12 +970,12 @@ topSheet:{
  position:'absolute',
  alignItems:'center',
  justifyContent:'center',
- top:90,
+ top:110,
 
 },
 seqBgImg:{
-  width:90,
-  height:90,
+  width:70,
+  height:70,
   alignItems:'center',
   position:'absolute',
   top:-20,
@@ -999,13 +998,13 @@ seqBgImg:{
   justifyContent:'center',
  },
  optBgImg:{
-width:70,
-height:70,
+width:60,
+height:60,
 resizeMode:'contain',
  },
  optMBgImg:{
-width:90,
-height:90,
+width:80,
+height:80,
 resizeMode:'contain',
  },
  selectMessage:{
@@ -1016,7 +1015,7 @@ resizeMode:'contain',
   alignItems:'center',
  },
  payTitleDiv:{
-  width:250,
+  width:230,
   height:30,
   backgroundColor:'#fff',
   flexDirection:'row',
@@ -1065,28 +1064,28 @@ resizeMode:'contain',
     top:197,
    },
    input1:{
-    width:250,
+    width:230,
      fontSize:20,
    },
    input2:{
-    width:100,
+    width:85,
     alignSelf:'center',
     fontSize:20,
    },
    input3:{
-    width:120,
+    width:105,
     alignSelf:'center',
     fontSize:20,
    },
    cardNum:{
-    width:wp('100%'),
+    width:wp('60%'),
     position:'absolute',
     textAlign:'center',
     alignItems:'center',
     top:220,
    },
    cardNum2:{
-    width:wp('100%'),
+    width:wp('60%'),
     position:'absolute',
     alignItems:'center',
     top:305,
@@ -1118,8 +1117,9 @@ resizeMode:'contain',
         borderStyle:'solid',
         borderColor:'#f6f6f6',
         position:'absolute',
-        top:400,
+        top:410,
         alignItems:'center',
+        zIndex:23
        },
        backArrow:{
         width:width,
